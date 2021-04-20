@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
 
 function App() {
+  const [hora, setHora] = useState();
+  const [multiplicador, setMultiplicador] = useState();
+
+  const opcao = (e) => {
+    const op = e.target.value;
+    if (op === "anual") setMultiplicador(30);
+    else setMultiplicador(15);
+  };
+
+  const calcularHoras = (e) => {
+    setHora(e.target.value * multiplicador);
+    console.log(hora);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div onChange={opcao}>
+        <input type="radio" value="anual" name="opcao" /> Anual
+        <input type="radio" value="semestral" name="opcao" /> Semestral
+      </div>
+      <label>
+        Digite a quantidade de horas
+        <input type="text" name="hora" onChange={calcularHoras} />
+      </label>
+      <input type="submit" value="enviar" />
+      <div>
+        <label>Resultado: {hora}</label>
+      </div>
     </div>
   );
 }
